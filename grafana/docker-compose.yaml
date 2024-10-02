@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel,vertamedia-clickhouse-datasource
+    volumes:
+      - "./grafana.ini:/etc/grafana/grafana.ini"
+      - "grafana-storage:/var/lib/grafana"
+volumes:
+  grafana-storage:
