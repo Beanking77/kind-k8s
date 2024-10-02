@@ -154,7 +154,7 @@ Import dashboard json files
 - **Prometheus 錯誤率 (Prometheus Errors)**:  
   監控 Prometheus 的錯誤發生情況，例如無法抓取數據或查詢失敗。
 
-
+---
 
 ### 5.7 要具體觀察 CPU Throttling，建議新增一個專門的監控 panel，原因如下：
 
