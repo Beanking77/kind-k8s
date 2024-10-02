@@ -1,0 +1,43 @@
+# helloworld-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+  namespace: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloworld-pod
+  template:
+    metadata:
+      labels:
+        app: helloworld-pod
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: app
+      containers:
+      - name: my-pod
+        image: hello-world:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 200m
+          limits:
+            cpu: 600m
+---
+# helloworld-hpa.yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: helloworld-hpa
+  namespace: app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta2
+    kind: Deployment
+    name: helloworld-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
